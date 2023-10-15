@@ -16,6 +16,7 @@ model User {
   email  String  @unique
   name   String
   scores Score[]
+  criteria Criteria?
 }
 
 model House {
@@ -40,6 +41,10 @@ model Score {
 model Criteria {
   id        Int         @id @default(autoincrement())
   criterion Criterion[]
+  user    User?  @relation(fields: [userId], references: [id])
+  userId  Int? @unique
+
+  @@index([userId])
 }
 
 model Criterion {
