@@ -20,14 +20,13 @@ import {
 } from '@/components/ui/form';
 // import CreateCriterionForm from './CreateCriterionForm';
 import { Input } from '@/components/ui/input';
-import { WeightIconInfo } from '../WeightInfoIcon';
+import { WeightIconInfo } from './WeightInfoIcon';
 import { trpc } from '@/app/_trpc/client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import React from 'react';
-import { LoaderIcon } from 'lucide-react';
-import { Toaster } from '@/components/ui/toaster';
+import { RefreshCw } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 
@@ -91,11 +90,7 @@ export default function CreateCriterion({
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <div
-          className={`max-w-md flex ${
-            isCriteriaEmpty ? 'mt-1 ' : 'justify-end'
-          }`}
-        >
+        <div className={`flex ${isCriteriaEmpty ? 'mt-1 ' : 'justify-end'}`}>
           <DialogTrigger className='mb-4' asChild>
             <Button>{isCriteriaEmpty ? 'Create a criteria' : 'Create'}</Button>
           </DialogTrigger>
@@ -105,7 +100,6 @@ export default function CreateCriterion({
             <DialogTitle>Create a criteria</DialogTitle>
             {/* <DialogDescription>description</DialogDescription> */}
           </DialogHeader>
-          {/* <CreateCriterionForm /> */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className='mb-4'>
@@ -157,20 +151,17 @@ export default function CreateCriterion({
                   </Button>
                 </DialogClose>
                 {isLoading ? (
-                  <Button disabled className='w-20'>
-                    <LoaderIcon />
+                  <Button disabled>
+                    <RefreshCw className='animate-spin' />
                   </Button>
                 ) : (
-                  <Button type='submit' className='w-20'>
-                    Create
-                  </Button>
+                  <Button type='submit'>Create</Button>
                 )}
               </DialogFooter>
             </form>
           </Form>
         </DialogContent>
       </Dialog>
-      <Toaster />
     </>
   );
 }
