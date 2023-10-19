@@ -1,3 +1,5 @@
+import Houses from '@/components/Houses';
+
 export default function () {
-  return <p>houses page</p>;
+  return <Houses />;
 }

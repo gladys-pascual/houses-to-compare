@@ -18,7 +18,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-// import CreateCriterionForm from './CreateCriterionForm';
 import { Input } from '@/components/ui/input';
 import { WeightIconInfo } from './WeightInfoIcon';
 import { trpc } from '@/app/_trpc/client';
@@ -116,7 +115,7 @@ export default function CreateCriterion({
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-xs' />
                     </FormItem>
                   )}
                 />
@@ -139,7 +138,7 @@ export default function CreateCriterion({
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-xs' />
                     </FormItem>
                   )}
                 />

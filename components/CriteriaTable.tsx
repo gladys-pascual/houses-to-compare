@@ -7,7 +7,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Edit, Pen } from 'lucide-react';
+import { Pen } from 'lucide-react';
 import { Trash2Icon } from 'lucide-react';
 import CreateCriterion from './CreateCriterion';
 import {
@@ -34,14 +34,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { WeightIconInfo } from './WeightInfoIcon';
-import { Decimal } from '@prisma/client/runtime/library';
-
-type Criterion = {
-  id: number;
-  factor: string;
-  weight: Decimal;
-  criteriaId: number | null;
-};
+import { Criterion } from '@prisma/client';
 
 type CriteriaTableProps = {
   criterionList: Criterion[];
@@ -54,9 +47,9 @@ export default async function CriteriaTable({
     return (
       <Dialog>
         <div className='flex justify-end'>
-          <DialogTrigger className='mb-4' asChild>
+          <DialogTrigger asChild>
             <Button
-              className='mb-0 mr-2'
+              className='mr-2'
               variant='outline'
               size='icon'
               aria-label='edit criteria'
@@ -110,13 +103,8 @@ export default async function CriteriaTable({
     return (
       <AlertDialog>
         <div className='max-w-md flex justify-end'>
-          <AlertDialogTrigger className='mb-4' asChild>
-            <Button
-              variant='outline'
-              size='icon'
-              aria-label='delete criteria'
-              className='mb-0'
-            >
+          <AlertDialogTrigger asChild>
+            <Button variant='outline' size='icon' aria-label='delete criteria'>
               <Trash2Icon className='h-4 w-4' />
             </Button>
           </AlertDialogTrigger>

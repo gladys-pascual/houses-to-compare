@@ -9,47 +9,48 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  name     String
-  scores   Score[]
-  criteria Criteria?
+  id             Int              @id @default(autoincrement())
+  email          String           @unique
+  name           String
+  criterionScore CriterionScore[]
+  criteria       Criteria?
+}
+
+model CriterionScore {
+  id             Int    @id @default(autoincrement())
+  userId         Int
+  user           User   @relation(fields: [userId], references: [id])
+  criterionId    Int
+  criterionScore Int
+  house          House  @relation(fields: [houseAddress], references: [address])
+  houseAddress   String
+
+  @@index([userId])
+  @@index([houseAddress])
 }
 
 model House {
-  id      Int     @id @default(autoincrement())
-  address String
-  link    String
-  Score   Score[]
-}
-
-model Score {
-  id      Int     @id @default(autoincrement())
-  userId  Int?
-  houseId Int?
-  score   Decimal
-  user    User?   @relation(fields: [userId], references: [id])
-  house   House?  @relation(fields: [houseId], references: [id])
-
-  @@index([userId])
-  @@index([houseId])
+  id             Int              @id @default(autoincrement())
+  address        String           @unique
+  link           String?
+  criterionScore CriterionScore[]
 }
 
 model Criteria {
   id        Int         @id @default(autoincrement())
-  userId    Int?        @unique
+  userId    Int         @unique
   criterion Criterion[]
-  user      User?       @relation(fields: [userId], references: [id])
+  user      User        @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
 
 model Criterion {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   factor     String
   weight     Decimal
-  criteriaId Int?
-  criteria   Criteria? @relation(fields: [criteriaId], references: [id])
+  criteriaId Int
+  criteria   Criteria @relation(fields: [criteriaId], references: [id])
 
   @@index([criteriaId])
 }
