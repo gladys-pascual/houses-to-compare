@@ -1,49 +1,38 @@
-'use client';
-
-import * as React from 'react';
 import Link from 'next/link';
-
-import { cn } from '@/lib/utils';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
 import { ModeToggle } from './ModeToggle';
+import {
+  LogoutLink,
+  getKindeServerSession,
+} from '@kinde-oss/kinde-auth-nextjs/server';
 
-export default function NavigationMenuDemo() {
+export default async function Navbar() {
+  const { getUser } = getKindeServerSession();
+  const user = getUser();
+
   return (
-    <NavigationMenu className='container pt-10 pb-16 font-mono'>
-      <NavigationMenuList>
-        <NavigationMenuItem>
+    <nav className='sticky font-mono'>
+      <div className='flex items-center justify-between p-12'>
+        <div className='items-center space-x-10'>
           <Link href='/' legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Getting Started
-            </NavigationMenuLink>
+            Home
           </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href='/criteria' legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          {user && (
+            <Link href='/criteria' legacyBehavior passHref>
               Criteria
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href='/houses' legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            </Link>
+          )}
+          {user && (
+            <Link href='/houses' legacyBehavior passHref>
               Houses
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
+            </Link>
+          )}
+        </div>
+        <div className='flex justify column items-center space-x-10'>
+          {user && <p>Hi, {user.given_name}!</p>}
+          {user && <LogoutLink>Log out</LogoutLink>}
           <ModeToggle />
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+        </div>
+      </div>
+    </nav>
   );
 }

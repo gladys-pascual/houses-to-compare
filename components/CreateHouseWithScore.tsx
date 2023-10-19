@@ -27,11 +27,8 @@ import * as z from 'zod';
 import React from 'react';
 import { RefreshCw } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
-// hard coded for now
-const userId = 1;
+import { useRouter } from 'next/navigation';
 
 type Criterion = {
   factor: string;
@@ -51,7 +48,7 @@ export default function CreateHouseWithScore({
 }: CreateHouseWithScoreProps) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const { toast } = useToast();
-  const utils = trpc.useContext();
+  const router = useRouter();
 
   const criteriaScoreSchema = criteriaList?.reduce((acc, curr) => {
     return {
@@ -114,9 +111,14 @@ export default function CreateHouseWithScore({
       onSuccess: (data) => {
         setIsDialogOpen(false);
         toast({
-          description: <>House is successfully created</>,
+          description: (
+            <>
+              Congratulations, <strong>{data?.address}</strong> has been rated
+              ✨
+            </>
+          ),
         });
-        utils.getHousesScore.invalidate();
+        router.refresh();
       },
     });
 
@@ -128,7 +130,6 @@ export default function CreateHouseWithScore({
         return { criterionId: +key, criterionScore: value as number };
       }),
       houseAddress,
-      userId: userId,
     };
 
     return createCriterionScores(dataToSubmit);
@@ -179,7 +180,9 @@ export default function CreateHouseWithScore({
 
             <div className='mb-4'>
               <FormLabel>Rating</FormLabel>
-              <FormDescription>Enter a score for each criteria</FormDescription>
+              <FormDescription>
+                Enter a rating for each criteria
+              </FormDescription>
               {getScoreRows()}
               <FormDescription className='mt-4'>
                 You can adjust your predefined criteria{' '}

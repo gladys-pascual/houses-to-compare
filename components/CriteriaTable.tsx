@@ -33,7 +33,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { WeightIconInfo } from './WeightInfoIcon';
 import { Criterion } from '@prisma/client';
 
 type CriteriaTableProps = {
@@ -77,7 +76,6 @@ export default async function CriteriaTable({
                 <Label htmlFor='weight' className='pr-1'>
                   Weight
                 </Label>
-                <WeightIconInfo />
               </div>
               <Input
                 id='weight'

@@ -19,7 +19,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import CreateHouseWithScore from './CreateHouseWithScore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -27,7 +26,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -59,60 +57,60 @@ type HouseTableProps = {
 };
 
 export default function HousesTable({ housesScore }: HouseTableProps) {
-  // const EditHouse = () => {
-  //   return (
-  //     <Dialog>
-  //       <div className='flex justify-end'>
-  //         <DialogTrigger asChild>
-  //           <Button
-  //             className='mr-2'
-  //             variant='outline'
-  //             size='icon'
-  //             aria-label='edit criteria'
-  //           >
-  //             <Pen className='h-4 w-4' />
-  //           </Button>
-  //         </DialogTrigger>
-  //       </div>
-  //       <DialogContent className='sm:max-w-[425px]'>
-  //         <DialogHeader>
-  //           <DialogTitle>Edit your score for xxx</DialogTitle>
-  //           {/* <DialogDescription>description</DialogDescription> */}
-  //         </DialogHeader>
-  //         <div className='grid gap-4 py-4'>
-  //           <div className='grid  items-center gap-4'>
-  //             <Label htmlFor='factor'>Factor</Label>
-  //             <Input
-  //               id='factor'
-  //               // value={criterion.factor}
-  //               className='col-span-3'
-  //             />
-  //           </div>
-  //           <div className='grid  items-center gap-4'>
-  //             <div className='flex items-center'>
-  //               <Label htmlFor='weight' className='pr-1'>
-  //                 Weight
-  //               </Label>
-  //             </div>
-  //             <Input
-  //               id='weight'
-  //               // value={criterion.weight.toString()}
-  //               className='col-span-3'
-  //             />
-  //           </div>
-  //         </div>
-  //         <DialogFooter>
-  //           <DialogClose asChild>
-  //             <Button type='button' variant='secondary'>
-  //               Close
-  //             </Button>
-  //           </DialogClose>
-  //           <Button type='submit'>Submit</Button>
-  //         </DialogFooter>
-  //       </DialogContent>
-  //     </Dialog>
-  //   );
-  // };
+  const EditHouse = () => {
+    return (
+      <Dialog>
+        <div className='flex justify-end'>
+          <DialogTrigger asChild>
+            <Button
+              className='mr-2'
+              variant='outline'
+              size='icon'
+              aria-label='edit criteria'
+            >
+              <Pen className='h-4 w-4' />
+            </Button>
+          </DialogTrigger>
+        </div>
+        <DialogContent className='sm:max-w-[425px]'>
+          <DialogHeader>
+            <DialogTitle>Edit your score for xxx</DialogTitle>
+            {/* <DialogDescription>description</DialogDescription> */}
+          </DialogHeader>
+          <div className='grid gap-4 py-4'>
+            <div className='grid  items-center gap-4'>
+              <Label htmlFor='factor'>Factor</Label>
+              <Input
+                id='factor'
+                // value={criterion.factor}
+                className='col-span-3'
+              />
+            </div>
+            <div className='grid  items-center gap-4'>
+              <div className='flex items-center'>
+                <Label htmlFor='weight' className='pr-1'>
+                  Weight
+                </Label>
+              </div>
+              <Input
+                id='weight'
+                // value={criterion.weight.toString()}
+                className='col-span-3'
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button type='button' variant='secondary'>
+                Close
+              </Button>
+            </DialogClose>
+            <Button type='submit'>Submit</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  };
 
   const DeleteHouse = ({ houseScore }: { houseScore: HouseScore }) => {
     return (
@@ -154,7 +152,7 @@ export default function HousesTable({ housesScore }: HouseTableProps) {
             {houseScore.score.toFixed(2)}
           </TableCell>
           <TableCell className='flex justify-end'>
-            {/* <EditHouse /> */}
+            <EditHouse />
             <DeleteHouse houseScore={houseScore} />
           </TableCell>
         </TableRow>

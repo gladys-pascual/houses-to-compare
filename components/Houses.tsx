@@ -35,12 +35,11 @@ export default function Houses() {
   const isCriteriaEmpty = !criteria?.criterion.length;
 
   const NoHouse = () => (
-    <div className='flex flex-col items-center gap-4 h-screen content-center'>
+    <div className='flex flex-col items-center gap-4 h-screen content-center pt-40'>
       {isCriteriaEmpty ? (
-        // todo: center this on the page
         <>
           <Ghost className='h-8 w-8 text-zinc-800' />
-          <h3 className='font-semibold text-m'>
+          <h3 className='font-semibold text-xl'>
             You don't have a criteria to rate your house yet
           </h3>
           <span>
@@ -83,11 +82,8 @@ export default function Houses() {
 
   return (
     <div className='container'>
-      {(!isCriteriaEmpty || !isCriterionScoresEmpty) && (
-        <>
-          <h1 className='font-mono text-xl pb-4'>Houses</h1>
-          {/* <h2>Here are the houses you want to compare</h2> */}
-        </>
+      {!isCriteriaEmpty && !isCriterionScoresEmpty && (
+        <h1 className='font-mono text-xl pb-4'>Houses</h1>
       )}
       {isCriterionScoresEmpty ? (
         <NoHouse />

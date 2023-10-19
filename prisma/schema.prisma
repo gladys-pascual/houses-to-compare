@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id             Int              @id @default(autoincrement())
+  id             String           @id @unique //matches kinde user id
   email          String           @unique
   name           String
   criterionScore CriterionScore[]
@@ -18,7 +18,7 @@ model User {
 
 model CriterionScore {
   id             Int    @id @default(autoincrement())
-  userId         Int
+  userId         String
   user           User   @relation(fields: [userId], references: [id])
   criterionId    Int
   criterionScore Int
@@ -38,9 +38,9 @@ model House {
 
 model Criteria {
   id        Int         @id @default(autoincrement())
-  userId    Int         @unique
   criterion Criterion[]
   user      User        @relation(fields: [userId], references: [id])
+  userId    String      @unique
 
   @@index([userId])
 }

@@ -2,14 +2,16 @@ import db from '@/db';
 import { Ghost } from 'lucide-react';
 import CreateCriterion from './CreateCriterion';
 import CriteriaTable from './CriteriaTable';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import Link from 'next/link';
 
 export default async function Criteria() {
-  const userId = 1;
+  const { getUser } = getKindeServerSession();
+  const user = getUser();
 
-  // // make database call to get criteria
   const criteria = await db.criteria.findFirst({
     where: {
-      userId,
+      userId: user.id,
     },
     include: {
       criterion: true,
@@ -17,11 +19,10 @@ export default async function Criteria() {
   });
 
   const criterionList = criteria?.criterion;
-  // const isCriteriaEmpty = true;
   const isCriteriaEmpty = !criterionList?.length;
 
   const NoCriteria = () => (
-    <div className='flex flex-col items-center gap-4 h-screen content-center'>
+    <div className='flex flex-col items-center gap-4 h-screen content-center pt-40'>
       <Ghost className='h-8 w-8 text-zinc-800' />
       <h3 className='font-semibold text-xl'>Pretty empty around here</h3>{' '}
       <p>Let&apos;s change that</p>
@@ -31,14 +32,20 @@ export default async function Criteria() {
 
   return (
     <div className='container'>
-      <h1 className='font-mono text-xl pb-4'>Criteria</h1>
-      {/* <h2 className='pb-10'>
-        List of your predefined criteria, which will be used to rank your houses
-      </h2> */}
+      {!isCriteriaEmpty && <h1 className='font-mono text-xl pb-4'>Criteria</h1>}
       {isCriteriaEmpty ? (
         <NoCriteria />
       ) : (
-        <CriteriaTable criterionList={criterionList} />
+        <>
+          <CriteriaTable criterionList={criterionList} />
+          <p className='pl-4 pt-8 text-slate-600'>
+            Once your criteria are set, let's start{' '}
+            <Link href='/houses' className='text-blue-600 hover:underline'>
+              rating houses
+            </Link>
+            !
+          </p>
+        </>
       )}
     </div>
   );

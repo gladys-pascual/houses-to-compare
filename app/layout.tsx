@@ -21,21 +21,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        {' '}
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Providers>
+      <Providers>
+        <body className={inter.className}>
+          {' '}
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
             <Toaster />
             <Navbar />
             {children}
-          </Providers>
-        </ThemeProvider>
-      </body>
+          </ThemeProvider>
+        </body>
+      </Providers>
     </html>
   );
 }

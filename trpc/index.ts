@@ -1,15 +1,54 @@
 import db from '@/db';
-import { publicProcedure, router } from './trpc';
+import { publicProcedure, privateProcedure, router } from './trpc';
 import { z } from 'zod';
-import USER_ID from '@/USER_ID';
 import { Criterion, House } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { TRPCError } from '@trpc/server';
 
 export const appRouter = router({
-  getCriteria: publicProcedure.query(async () => {
+  authCallback: publicProcedure.query(async () => {
+    const { getUser } = getKindeServerSession();
+    const user = getUser();
+
+    if (!user.id || !user.email) throw new TRPCError({ code: 'UNAUTHORIZED' });
+
+    // check if user is in the database
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: user.id,
+      },
+    });
+
+    if (!dbUser) {
+      // create user in db
+      await db.user.create({
+        data: {
+          id: user.id,
+          email: user.email,
+          name: user.given_name ?? 'friend',
+        },
+      });
+    }
+
+    return { success: true };
+  }),
+
+  getCriteria: privateProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
+
+    // check if user is in the database
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!dbUser) throw new TRPCError({ code: 'UNAUTHORIZED' });
+
     return await db.criteria.findFirst({
       where: {
-        userId: USER_ID,
+        userId,
       },
       include: {
         criterion: true,
@@ -17,10 +56,21 @@ export const appRouter = router({
     });
   }),
 
-  getCriterionScores: publicProcedure.query(async () => {
+  getCriterionScores: privateProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
+
+    // check if user is in the database
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!dbUser) throw new TRPCError({ code: 'UNAUTHORIZED' });
+
     return db.criterionScore.findMany({
       where: {
-        userId: USER_ID,
+        userId,
       },
       include: {
         house: true,
@@ -28,16 +78,25 @@ export const appRouter = router({
     });
   }),
 
-  createCriterion: publicProcedure
+  createCriterion: privateProcedure
     .input(
       z.object({
         factor: z.string(),
         weight: z.number(),
-        userId: z.number(),
       })
     )
     .mutation(async (opts) => {
-      const { input } = opts;
+      const { input, ctx } = opts;
+      const { userId } = ctx;
+
+      // check if user is in the database
+      const dbUser = await db.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (!dbUser) throw new TRPCError({ code: 'UNAUTHORIZED' });
 
       const criterion = await db.criterion.create({
         data: {
@@ -46,10 +105,10 @@ export const appRouter = router({
           criteria: {
             connectOrCreate: {
               create: {
-                userId: input.userId,
+                userId: userId,
               },
               where: {
-                userId: input.userId,
+                userId: userId,
               },
             },
           },
@@ -58,19 +117,28 @@ export const appRouter = router({
 
       return criterion;
     }),
-  createCriterionScores: publicProcedure
+
+  createCriterionScores: privateProcedure
     .input(
       z.object({
         criterionScores: z.array(
           z.object({ criterionId: z.number(), criterionScore: z.number() })
         ),
         houseAddress: z.string(),
-        userId: z.number(),
       })
     )
     .mutation(async (opts) => {
-      const { input } = opts;
-      const { userId, houseAddress, criterionScores } = input;
+      const { input, ctx } = opts;
+      const { houseAddress, criterionScores } = input;
+      const { userId } = ctx;
+
+      // check if user is in the database
+      const dbUser = await db.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+      if (!dbUser) throw new TRPCError({ code: 'UNAUTHORIZED' });
 
       const house = await db.house.findUnique({
         where: {
@@ -97,13 +165,24 @@ export const appRouter = router({
         data: dataToPass,
       });
 
-      return criterionScore;
+      return house;
     }),
 
-  getHousesScore: publicProcedure.query(async () => {
+  getHousesScore: privateProcedure.query(async ({ ctx }) => {
+    const { userId } = ctx;
+
+    // check if user is in the database
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!dbUser) throw new TRPCError({ code: 'UNAUTHORIZED' });
+
     const criterionScores = await db.criterionScore.findMany({
       where: {
-        userId: USER_ID,
+        userId,
       },
       include: {
         house: true,
@@ -112,7 +191,7 @@ export const appRouter = router({
 
     const criteria = await db.criteria.findFirst({
       where: {
-        userId: USER_ID,
+        userId,
       },
       include: {
         criterion: true,
