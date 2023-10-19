@@ -14,7 +14,7 @@ export default async function () {
     },
   });
 
-  if (!dbUser) redirect('/');
+  if (!dbUser) redirect('/auth-callback');
 
   return <Houses />;
 }

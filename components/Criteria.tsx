@@ -4,10 +4,13 @@ import CreateCriterion from './CreateCriterion';
 import CriteriaTable from './CriteriaTable';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import Link from 'next/link';
+import { TRPCError } from '@trpc/server';
 
 export default async function Criteria() {
   const { getUser } = getKindeServerSession();
   const user = getUser();
+
+  if (!user.id || !user.email) throw new TRPCError({ code: 'UNAUTHORIZED' });
 
   const criteria = await db.criteria.findFirst({
     where: {
