@@ -64,13 +64,13 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
                 </li>
                 <li className='my-3 h-px w-full bg-gray-300' />
                 <li className='flex'>
-                  {/* <Link
+                  <Link
                     className='flex items-center w-full font-semibold'
-                    href='/sign-out'
+                    href='/api/auth/logout'
                   >
                     Log out
                   </Link>
-                  <ArrowRight className='pl-2 h-5 w-5' /> */}
+                  <ArrowRight className='pl-2 h-5 w-5' />
                 </li>
               </>
             )}

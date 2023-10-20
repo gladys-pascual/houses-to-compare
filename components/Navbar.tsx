@@ -40,20 +40,22 @@ export default async function Navbar() {
 
         <div className='flex items-center'>
           {user && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant='link' className='flex mr-8'>
-                  <p className='pr-2'>Hi, {user.given_name} </p>
-                  <ChevronDown className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <LogoutLink>Log out</LogoutLink>
-                  <ArrowRight className='pl-2 h-5 w-5' />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className='hidden sm:flex'>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant='link' className='flex mr-8'>
+                    <p className='pr-2'>Hi, {user.given_name} </p>
+                    <ChevronDown className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <LogoutLink>Log out</LogoutLink>
+                    <ArrowRight className='pl-2 h-5 w-5' />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           )}
           <ModeToggle />
         </div>
