@@ -78,7 +78,7 @@ export default function CreateHouseWithScore({
     return criteriaList?.sort(sortByFactorWeight).map((criterion) => {
       const { factor, id } = criterion;
       return (
-        <div className='mt-4'>
+        <div className='mt-4' key={id}>
           <FormField
             control={form.control}
             //@ts-expect-error: dynamic typing of schema causing ts error

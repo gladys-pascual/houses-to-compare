@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import db from '@/db';
 import Criteria from '@/components/Criteria';
 
-export default async function () {
+export default async function Page() {
   const { getUser } = getKindeServerSession();
   const user = getUser();
   if (!user || !user.id) redirect('/');

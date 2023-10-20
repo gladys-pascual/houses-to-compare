@@ -11,7 +11,6 @@ export default async function Criteria() {
   const user = getUser();
 
   if (!user.id || !user.email) throw new TRPCError({ code: 'UNAUTHORIZED' });
-
   const criteria = await db.criteria.findFirst({
     where: {
       userId: user.id,
@@ -42,7 +41,7 @@ export default async function Criteria() {
         <>
           <CriteriaTable criterionList={criterionList} />
           <p className='pl-4 pt-8 text-slate-600'>
-            Once your criteria are set, let's start{' '}
+            Once your criteria are set, let&apos;s start{' '}
             <Link href='/houses' className='text-blue-600 hover:underline'>
               rating houses
             </Link>

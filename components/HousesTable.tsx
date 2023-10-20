@@ -146,7 +146,7 @@ export default function HousesTable({ housesScore }: HouseTableProps) {
   const getTableRow = () => {
     return housesScore.map((houseScore) => {
       return (
-        <TableRow>
+        <TableRow key={houseScore.house.id}>
           <TableCell>{houseScore.house.address}</TableCell>
           <TableCell className='text-center'>
             {houseScore.score.toFixed(2)}

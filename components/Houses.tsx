@@ -40,7 +40,7 @@ export default function Houses() {
         <>
           <Ghost className='h-8 w-8 text-zinc-800' />
           <h3 className='font-semibold text-xl'>
-            You don't have a criteria to rate your house yet
+            You don&apos;t have a criteria to rate your house yet
           </h3>
           <span>
             <Link href='/criteria' className='text-blue-600 hover:underline'>
@@ -53,7 +53,7 @@ export default function Houses() {
         <>
           <Ghost className='h-8 w-8 text-zinc-800' />
           <h3 className='font-semibold text-xl'>
-            You haven't rated any house yet
+            You haven&apos;t rated any house yet
           </h3>
           <p>Let&apos;s change that</p>
           <CreateHouseWithScore
