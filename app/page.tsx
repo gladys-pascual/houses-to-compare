@@ -20,7 +20,7 @@ export default async function Home() {
       <h1 className='max-w-4xl  text-2xl font-bold md:text-3xl lg:text-4xl tracking-widest'>
         Houses to Compare
       </h1>
-      <h2 className='max-w-3xl text-2xl md:text-3xl lg:text-4xl mt-8 mb-20 '>
+      <h2 className='max-w-3xl text-2xl md:text-3xl lg:text-4xl mt-8 mb-20 p-4'>
         Remove the burden of <span className='italic'>decision fatigue</span>{' '}
         and focus getting your{' '}
         <span className='text-purple-600'>dream home</span>

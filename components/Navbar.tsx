@@ -4,6 +4,15 @@ import {
   LogoutLink,
   getKindeServerSession,
 } from '@kinde-oss/kinde-auth-nextjs/server';
+import { ChevronDown, ArrowRight } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { Button } from './ui/button';
+import MobileNav from './MobileNav';
 
 export default async function Navbar() {
   const { getUser } = getKindeServerSession();
@@ -11,8 +20,9 @@ export default async function Navbar() {
 
   return (
     <nav className='sticky font-mono'>
-      <div className='flex items-center justify-between p-12'>
-        <div className='items-center space-x-10'>
+      <div className='flex items-center justify-between p-10 lg:p-12'>
+        {user && <MobileNav isAuth={!!user} />}
+        <div className='hidden items-center space-x-10 sm:flex'>
           <Link href='/' legacyBehavior passHref>
             Home
           </Link>
@@ -27,9 +37,24 @@ export default async function Navbar() {
             </Link>
           )}
         </div>
-        <div className='flex justify column items-center space-x-10'>
-          {user && <p>Hi, {user.given_name}!</p>}
-          {user && <LogoutLink>Log out</LogoutLink>}
+
+        <div className='flex items-center'>
+          {user && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='link' className='flex mr-8'>
+                  <p className='pr-2'>Hi, {user.given_name} </p>
+                  <ChevronDown className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <LogoutLink>Log out</LogoutLink>
+                  <ArrowRight className='pl-2 h-5 w-5' />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
           <ModeToggle />
         </div>
       </div>
