@@ -1,4 +1,4 @@
-[Houses to Compare](https://houses-to-compare.vercel.app/) is a full stack application to help built using Next.js and tRPC for end to end typesafe API, initially built as a part of a hackweek project.
+[Houses to Compare](https://houses-to-compare.vercel.app/) is a full stack application to help built using Next.js and tRPC for end to end typesafe API, initially built as a part of a hackweek project. It is in progress and I'm hoping to continue building the missing features such as editing, deleting criterias and house score, and fix existing bugs.
 
 
 
