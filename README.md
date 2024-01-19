@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[Houses to Compare](https://houses-to-compare.vercel.app/) is a full stack application to help built using Next.js and tRPC for end to end typesafe API, initially built as a part of a hackweek project.
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+_Backend tools_
+- Database: PlanetScale
+- ORM: Prisma
+- Authenticatication: Kinde
+  
+_Frontend tools_
+- Component library: shadcn,
+- CSS: Tailwind
+- Forms and validation: react hook form and zod
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  
+_Deployment:_ Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Demo
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+https://github.com/gladys-pascual/houses-to-compare/assets/61931978/f10ec16c-4222-4d36-a641-d9ef4afc4876
